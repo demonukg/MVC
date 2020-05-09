@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CharactersViewController.swift
 //  MVC
 //
 //  Created by Dmitry Y. on 5/5/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class CharactersViewController: NibViewController<CharactersContentView>  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
