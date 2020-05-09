@@ -9,12 +9,15 @@
 import UIKit
 
 final class CharactersViewController: NibViewController<CharactersContentView>  {
+    
+    // MARK: - Private properties
+    
+    private lazy var state: State = State.state(.initial, vc: self)
 
     // MARK: - View Controller life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         contentView.tableView.dataSource = self
         contentView.tableView.delegate = self
@@ -29,11 +32,31 @@ final class CharactersViewController: NibViewController<CharactersContentView>  
 
 extension CharactersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        guard let showingDataState = state as? ShowingDataState else { return 1 }
+        
+        return showingDataState.characters.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        switch state {
+        case is EmptyState:
+            return tableView.dequeueReusableCell(withIdentifier: EmptyCharacterTableViewCell.reuseId, for: indexPath)
+            
+        case let errorState as ErrorState:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ErrorCharacterTableViewCell.reuseId, for: indexPath) as! ErrorCharacterTableViewCell
+            cell.errorText = errorState.error.localizedDescription
+            return cell
+            
+        case is InitialState:
+            return tableView.dequeueReusableCell(withIdentifier: InitialCharacterTableViewCell.reuseId, for: indexPath)
+            
+        case let showingDataState as ShowingDataState:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ShowingDataCharacterTableViewCell.reuseId, for: indexPath) as! ShowingDataCharacterTableViewCell
+            cell.character = showingDataState.characters[indexPath.row]
+            return cell
+        default:
+            return UITableViewCell(style: .default, reuseIdentifier: nil)
+        }
     }
     
 }
@@ -43,11 +66,20 @@ extension CharactersViewController: UITableViewDataSource {
 extension CharactersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let showingDataState = state as? ShowingDataState else { return }
+        
+        print(showingDataState.characters[indexPath.row])
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        <#code#>
+        switch state {
+        case is ShowingDataState:
+            return 70.0
+            
+        default:
+            return tableView.bounds.height
+        }
     }
     
 }
@@ -74,6 +106,16 @@ extension CharactersViewController: UISearchBarDelegate {
         searchBar.setShowsCancelButton(false, animated: false)
         searchBar.text = nil
         searchBar.resignFirstResponder()
+    }
+    
+}
+
+// MARK: - Requests
+
+private extension CharactersViewController {
+    
+    func getCharacters(name: String, limit: Int? = 20, offset: Int? = nil) {
+        
     }
     
 }
