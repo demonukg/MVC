@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,13 @@
 		0A18965D2461ECF200F56723 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A18965C2461ECF200F56723 /* CharactersViewController.swift */; };
 		0A1896622461ECF300F56723 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A1896612461ECF300F56723 /* Assets.xcassets */; };
 		0A1896652461ECF300F56723 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A1896632461ECF300F56723 /* LaunchScreen.storyboard */; };
+		0A1EBBB824672F690062002D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EBBB724672F690062002D /* Networking.swift */; };
+		0A1EBBBC246733F60062002D /* GetCharactersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EBBBB246733F60062002D /* GetCharactersResponse.swift */; };
+		0A1EBBBF246734250062002D /* GetComicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EBBBE246734250062002D /* GetComicsResponse.swift */; };
+		0A1EBBC1246734610062002D /* RouterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EBBC0246734610062002D /* RouterInterface.swift */; };
+		0A1EBBC3246734D40062002D /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EBBC2246734D40062002D /* HTTPMethod.swift */; };
+		0A1EBBC5246734FD0062002D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EBBC4246734FD0062002D /* Constants.swift */; };
+		0A1EBBC7246735F60062002D /* CharacterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1EBBC6246735F60062002D /* CharacterRouter.swift */; };
 		0ACA31E42466D3730087DDA1 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA31E32466D3730087DDA1 /* AppCoordinator.swift */; };
 		0ACA31EC2466D46D0087DDA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA31E72466D46D0087DDA1 /* ViewController.swift */; };
 		0ACA31ED2466D46D0087DDA1 /* NibViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA31E82466D46D0087DDA1 /* NibViewController.swift */; };
@@ -42,6 +49,13 @@
 		0A1896612461ECF300F56723 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A1896642461ECF300F56723 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A1896662461ECF300F56723 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A1EBBB724672F690062002D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		0A1EBBBB246733F60062002D /* GetCharactersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCharactersResponse.swift; sourceTree = "<group>"; };
+		0A1EBBBE246734250062002D /* GetComicsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetComicsResponse.swift; sourceTree = "<group>"; };
+		0A1EBBC0246734610062002D /* RouterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterInterface.swift; sourceTree = "<group>"; };
+		0A1EBBC2246734D40062002D /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		0A1EBBC4246734FD0062002D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0A1EBBC6246735F60062002D /* CharacterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRouter.swift; sourceTree = "<group>"; };
 		0ACA31E32466D3730087DDA1 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0ACA31E72466D46D0087DDA1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0ACA31E82466D46D0087DDA1 /* NibViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibViewController.swift; sourceTree = "<group>"; };
@@ -102,9 +116,10 @@
 				0A1896582461ECF200F56723 /* AppDelegate.swift */,
 				0A18965A2461ECF200F56723 /* SceneDelegate.swift */,
 				0ACA31E32466D3730087DDA1 /* AppCoordinator.swift */,
+				0A1EBBC4246734FD0062002D /* Constants.swift */,
+				0A1896662461ECF300F56723 /* Info.plist */,
 				0A1896612461ECF300F56723 /* Assets.xcassets */,
 				0A1896632461ECF300F56723 /* LaunchScreen.storyboard */,
-				0A1896662461ECF300F56723 /* Info.plist */,
 				0ACA31FB2466D6BA0087DDA1 /* Networking */,
 				0ACA31FA2466D6A90087DDA1 /* Factories */,
 				0ACA31F92466D6980087DDA1 /* Extensions */,
@@ -113,6 +128,24 @@
 				0ACA31F02466D4FB0087DDA1 /* Screens */,
 			);
 			path = MVC;
+			sourceTree = "<group>";
+		};
+		0A1EBBB9246733720062002D /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				0A1EBBBB246733F60062002D /* GetCharactersResponse.swift */,
+				0A1EBBBE246734250062002D /* GetComicsResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		0A1EBBBA2467337F0062002D /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				0A1EBBC0246734610062002D /* RouterInterface.swift */,
+				0A1EBBC6246735F60062002D /* CharacterRouter.swift */,
+			);
+			path = Routers;
 			sourceTree = "<group>";
 		};
 		0ACA31E52466D46D0087DDA1 /* Base */ = {
@@ -189,6 +222,7 @@
 		0ACA31F92466D6980087DDA1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0A1EBBC2246734D40062002D /* HTTPMethod.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -203,6 +237,9 @@
 		0ACA31FB2466D6BA0087DDA1 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				0A1EBBBA2467337F0062002D /* Routers */,
+				0A1EBBB9246733720062002D /* Responses */,
+				0A1EBBB724672F690062002D /* Networking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -278,7 +315,6 @@
 				29CD5804BCDD280043679BD2 /* Pods-MVC.debug.xcconfig */,
 				8D8C6B2B5F6435A9CB559331 /* Pods-MVC.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -401,9 +437,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A1EBBBC246733F60062002D /* GetCharactersResponse.swift in Sources */,
 				0ACA31ED2466D46D0087DDA1 /* NibViewController.swift in Sources */,
 				0ACA320A2466DDD30087DDA1 /* EmptyCharacterTableViewCell.swift in Sources */,
 				0ACA31EC2466D46D0087DDA1 /* ViewController.swift in Sources */,
+				0A1EBBC1246734610062002D /* RouterInterface.swift in Sources */,
+				0A1EBBB824672F690062002D /* Networking.swift in Sources */,
+				0A1EBBC5246734FD0062002D /* Constants.swift in Sources */,
 				0ACA31E42466D3730087DDA1 /* AppCoordinator.swift in Sources */,
 				0ACA32062466DDB10087DDA1 /* ErrorCharacterTableViewCell.swift in Sources */,
 				0ACA32152466E2DA0087DDA1 /* Comics.swift in Sources */,
@@ -412,12 +452,15 @@
 				0ACA31F62466D5580087DDA1 /* CharactersContentView.swift in Sources */,
 				0A18965D2461ECF200F56723 /* CharactersViewController.swift in Sources */,
 				0A1896592461ECF200F56723 /* AppDelegate.swift in Sources */,
+				0A1EBBC3246734D40062002D /* HTTPMethod.swift in Sources */,
 				0ACA32132466E2CA0087DDA1 /* Character.swift in Sources */,
 				0ACA31FE2466DC970087DDA1 /* ShowingDataCharacterTableViewCell.swift in Sources */,
 				0ACA31EF2466D46D0087DDA1 /* NibViewInterface.swift in Sources */,
 				0ACA320E2466DDEC0087DDA1 /* InitialCharacterTableViewCell.swift in Sources */,
 				0ACA32172466E2ED0087DDA1 /* Thumbnail.swift in Sources */,
 				0A18965B2461ECF200F56723 /* SceneDelegate.swift in Sources */,
+				0A1EBBC7246735F60062002D /* CharacterRouter.swift in Sources */,
+				0A1EBBBF246734250062002D /* GetComicsResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

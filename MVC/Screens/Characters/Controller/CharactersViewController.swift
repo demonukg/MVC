@@ -13,6 +13,8 @@ final class CharactersViewController: NibViewController<CharactersContentView>  
     // MARK: - Private properties
     
     private lazy var state: State = State.state(.initial, vc: self)
+    
+    private var searchTask: DispatchWorkItem?
 
     // MARK: - View Controller life cycle
     
@@ -92,7 +94,26 @@ extension CharactersViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    
+        self.searchTask?.cancel()
+        
+        guard !searchText.isEmpty else { return }
+        
+        let task = DispatchWorkItem { [weak self] in
+            self?.getCharacters(name: searchText, result: { [weak self] response in
+                guard let self = self else { return }
+                switch response {
+                case .success(let result):
+                    self.state = State.state(result.data.results.count == 0 ? .empty : .showingData(result.data.results), vc: self)
+                    self.state.enter()
+                    
+                case .failure(let error):
+                    self.state = State.state(.error(error), vc: self)
+                    self.state.enter()
+                }
+            })
+        }
+        self.searchTask = task
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: task)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -114,8 +135,11 @@ extension CharactersViewController: UISearchBarDelegate {
 
 private extension CharactersViewController {
     
-    func getCharacters(name: String, limit: Int? = 20, offset: Int? = nil) {
-        
+    func getCharacters(name: String, limit: Int? = 20, offset: Int? = nil, result: @escaping (Result<GetCharactersResponse, Error>) -> Void) {
+        let request = CharacterRouter.getCharacters(name: name, limit: limit, offset: offset)
+        Networking.request(request) { (response: Result<GetCharactersResponse, Error>) in
+            result(response)
+        }
     }
     
 }
