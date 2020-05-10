@@ -13,8 +13,8 @@ final class CharactersViewController: NibViewController<CharactersContentView>  
     // MARK: - Private properties
     
     private lazy var state: State = State.state(.initial, vc: self)
-    
     private var searchTask: DispatchWorkItem?
+    private var queryText: String?
 
     // MARK: - View Controller life cycle
     
@@ -84,6 +84,28 @@ extension CharactersViewController: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let showingDataState = state as? ShowingDataState,
+            indexPath.item > 0,
+            let queryText = queryText
+        else { return }
+        
+        if indexPath.item == showingDataState.characters.count - 1 {
+            contentView.activityIndicator.startAnimating()
+            getCharacters(name: queryText, offset: showingDataState.characters.count) { [weak self] (result) in
+                guard let self = self else { return }
+                switch result {
+                case .success(let characters):
+                    showingDataState.addNewCharacters(characters.data.results)
+                case .failure(let error):
+                    self.state = State.state(.error(error), vc: self)
+                    self.state.enter()
+                }
+                self.contentView.activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
 }
 
 //MARK: - UISearchBarDelegate
@@ -95,9 +117,9 @@ extension CharactersViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchTask?.cancel()
-        
         guard !searchText.isEmpty else { return }
         
+        queryText = searchText
         let task = DispatchWorkItem { [weak self] in
             self?.getCharacters(name: searchText, result: { [weak self] response in
                 guard let self = self else { return }
@@ -113,7 +135,7 @@ extension CharactersViewController: UISearchBarDelegate {
             })
         }
         self.searchTask = task
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: task)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25, execute: task)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

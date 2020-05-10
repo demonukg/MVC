@@ -81,6 +81,20 @@ extension CharactersViewController {
             super.init(vc: vc)
         }
         
+        func addNewCharacters(_ characters: [Character]) {
+            guard !characters.isEmpty else { return }
+            
+            let numberOfExistingItems = vc.contentView.tableView.numberOfRows(inSection: 0)
+            let totalNumberOfItems = (numberOfExistingItems - 1) + characters.count
+            
+            let indexPaths = ((numberOfExistingItems - 1) ... (totalNumberOfItems - 1)).map({ IndexPath(row: $0, section: 0) })
+            
+            vc.contentView.tableView.performUsingPresentationValues {
+                self.characters.append(contentsOf: characters)
+                self.vc.contentView.tableView.insertRows(at: indexPaths, with: .none)
+            }
+        }
+        
     }
     
 }

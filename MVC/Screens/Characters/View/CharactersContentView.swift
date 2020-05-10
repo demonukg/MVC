@@ -24,11 +24,18 @@ final class CharactersContentView: UIView, NibViewInterface {
         return searchBar
     }()
     
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.sizeToFit()
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         tableView.tableHeaderView = searchBar
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = activityIndicator
         
         tableView.register(UINib(nibName: "InitialCharacterTableViewCell", bundle: nil),
                            forCellReuseIdentifier: InitialCharacterTableViewCell.reuseId)
