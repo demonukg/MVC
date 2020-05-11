@@ -61,28 +61,28 @@ final class CharacterComicsViewController: NibViewController<CharacterComicsCont
 extension CharacterComicsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let showingDataState = state as? State.ShowingDataState else { return 1 }
+        guard let showingDataState = state as? ShowingDataState else { return 1 }
         
         return showingDataState.comics.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch state {
-        case let showingData as State.ShowingDataState:
+        case let showingData as ShowingDataState:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShowingDataComicsCollectionViewCell.reuseId, for: indexPath) as! ShowingDataComicsCollectionViewCell
             cell.comics = showingData.comics[indexPath.row]
             return cell
             
-        case is State.EmptyState:
+        case is EmptyState:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyComicsCollectionViewCell.reuseId, for: indexPath)
             return cell
             
-        case let error as State.ErrorState:
+        case let error as ErrorState:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ErrorComicsCollectionViewCell.reuseId, for: indexPath) as! ErrorComicsCollectionViewCell
             cell.errorText = error.error.localizedDescription
             return cell
             
-        case is State.LoadingState:
+        case is LoadingState:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingComicsCollectionViewCell.reuseId, for: indexPath)
             return cell
             
@@ -96,7 +96,26 @@ extension CharacterComicsViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 
-extension CharacterComicsViewController: UICollectionViewDelegate {}
+extension CharacterComicsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let showingDataState = state as? ShowingDataState,
+            indexPath.item > 0
+        else { return }
+        
+        if indexPath.item == showingDataState.comics.count - 1 {
+            getComics(characterId: characterId, offset: showingDataState.comics.count) { [weak self] (result) in
+                guard let self = self else { return }
+                switch result {
+                case .success(let comics):
+                    showingDataState.addNewComics(comics.data.results)
+                case .failure(let error):
+                    self.state = State.state(.error(error), vc: self)
+                    self.state.enter()
+                }
+            }
+        }
+    }
+}
 
 
 //MARK: - UICollectionViewDelegateFlowLayout
@@ -105,7 +124,7 @@ extension CharacterComicsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch state {
-        case is State.ShowingDataState:
+        case is ShowingDataState:
             let height = collectionView.bounds.height - 20.0
             let width = height / 1.5
             return CGSize(width: width, height: height)
@@ -117,7 +136,7 @@ extension CharacterComicsViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         switch state {
-        case is State.ShowingDataState:
+        case is ShowingDataState:
             return UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
             
         default:

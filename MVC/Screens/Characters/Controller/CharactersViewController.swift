@@ -21,6 +21,8 @@ final class CharactersViewController: NibViewController<CharactersContentView>  
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Heroes of Marvel"
+        
         contentView.tableView.dataSource = self
         contentView.tableView.delegate = self
         
