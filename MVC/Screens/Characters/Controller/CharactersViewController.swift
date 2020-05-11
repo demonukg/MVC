@@ -70,8 +70,7 @@ extension CharactersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let showingDataState = state as? ShowingDataState else { return }
         
-        print(showingDataState.characters[indexPath.row])
-        
+        self.navigationController?.pushViewController(CharacterDetailViewController(character: showingDataState.characters[indexPath.row]), animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

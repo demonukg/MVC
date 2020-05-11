@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CharacterDetailContentView" customModule="MVC" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rF3-Ru-Fb7">
+                    <rect key="frame" x="0.0" y="44" width="414" height="300"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="IIQ-Bw-F79"/>
+                    </constraints>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qr0-1X-n7n">
+                    <rect key="frame" x="0.0" y="344" width="414" height="518"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHh-hf-Isr">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="29"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="moQ-6M-3h1">
+                            <rect key="frame" x="0.0" y="29" width="414" height="489"/>
+                            <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Qr0-1X-n7n" secondAttribute="trailing" id="7rA-BQ-iLC"/>
+                <constraint firstItem="Qr0-1X-n7n" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Dhg-Ng-svU"/>
+                <constraint firstItem="Qr0-1X-n7n" firstAttribute="top" secondItem="rF3-Ru-Fb7" secondAttribute="bottom" id="JLq-G4-5f3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rF3-Ru-Fb7" secondAttribute="trailing" id="MUM-fd-wGA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Qr0-1X-n7n" secondAttribute="bottom" id="d3k-eZ-C0z"/>
+                <constraint firstItem="rF3-Ru-Fb7" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="l0U-gW-hs9"/>
+                <constraint firstItem="rF3-Ru-Fb7" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="lpa-vN-wTG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="characterImageView" destination="rF3-Ru-Fb7" id="Fve-Y2-wVa"/>
+                <outlet property="comicsContainerView" destination="moQ-6M-3h1" id="FzY-y7-EAI"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="151"/>
+        </view>
+    </objects>
+</document>
